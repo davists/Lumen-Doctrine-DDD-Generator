@@ -41,10 +41,14 @@ In your destination Application change composer.json as the example. <br />
     }
   },
 ```
+
 #Requirements
 "php": ">=5.6.4", <br />
 "laravel/lumen-framework": "5.3.*", <br />
 "laravel-doctrine/orm": "1.2.*",
+
+#Application Example
+https://github.com/davists/Lumen-Doctrine-DDD-Example
 
 #References:
 
