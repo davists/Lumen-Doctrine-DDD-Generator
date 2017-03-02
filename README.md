@@ -24,10 +24,9 @@ There is one Controller, Service Application and Service Provider by Domain.
 Providers map Contracts and Implementations.
 
 #Usage
-composer install
-
-check the configuration in config/ddd_generator.php
-set the Domain definition. e.g ddd_generator/domain_defition_file_example.php
+composer install <br/>
+check the configuration in config/ddd_generator.php <br/>
+set the Domain definition. e.g ddd_generator/domain_defition_file_example.php <br/>
 
 In your destination Application change composer.json as the example. 
   "autoload": {
@@ -38,35 +37,40 @@ In your destination Application change composer.json as the example.
     }
   },
 
+#Requirements
+"php": ">=5.6.4", <br />
+"laravel/lumen-framework": "5.3.*", <br />
+"laravel-doctrine/orm": "1.2.*",
+
 #References:
 
-DDD
-https://github.com/dddinphp
-http://www.zankavtaskin.com/2013/09/applied-domain-driven-design-ddd-part-1.html
-https://www.youtube.com/watch?v=pL9XeNjy_z4&list=PLx4mLirQvMeV0uNpo1UaculL-djjI8eTz
-https://www.youtube.com/watch?v=yPvef9R3k-M
-https://www.youtube.com/watch?v=dnUFEg68ESM
+DDD <br/>
+https://github.com/dddinphp <br/>
+http://www.zankavtaskin.com/2013/09/applied-domain-driven-design-ddd-part-1.html <br/>
+https://www.youtube.com/watch?v=pL9XeNjy_z4&list=PLx4mLirQvMeV0uNpo1UaculL-djjI8eTz <br/>
+https://www.youtube.com/watch?v=yPvef9R3k-M <br/>
+https://www.youtube.com/watch?v=dnUFEg68ESM <br/>
 
-Hexagonal Architecture
-http://fideloper.com/hexagonal-architecture
-http://alistair.cockburn.us/Hexagonal+architecture
-https://www.yordipauptit.com/hexagonal-architecture-in-php/
+Hexagonal Architecture <br/>
+http://fideloper.com/hexagonal-architecture <br/>
+http://alistair.cockburn.us/Hexagonal+architecture <br/>
+https://www.yordipauptit.com/hexagonal-architecture-in-php/ <br/>
 
-Laravel Doctrine
+Laravel Doctrine <br/>
 http://www.laraveldoctrine.org/
 
-XML Doctrine Mapping
+XML Doctrine Mapping <br/>
 http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/xml-mapping.html
 
-Criteria Array to Doctrine Criteria
+Criteria Array to Doctrine Criteria <br/>
 https://gist.github.com/jgornick/8671644
 
-Foreign Key
+Foreign Key <br/>
 https://maltronblog.wordpress.com/2015/02/15/fkrelation/
 https://engineering.thetrainline.com/2015/07/23/foreign-keys-dont-go-there/
 http://microservices.io/patterns/data/database-per-service.html
 
-Generators
+Generators <br/>
 https://github.com/InfyOmLabs/laravel-generator
 https://github.com/motamonteiro/gerador
 
