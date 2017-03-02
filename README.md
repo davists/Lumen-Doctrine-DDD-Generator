@@ -7,7 +7,7 @@ The main purpose is to bootstrap the basic files and structure for the applicati
 
 #Assumptions:
 For a given Domain compound by Entities the generated files are:
-
+<b>
 Domain/{DOMAIN_NAME}/Entities/{ENTITY_NAME}.php,
 Domain/{DOMAIN_NAME}/Contracts/{ENTITY_NAME}RepositoryContract.php,
 Infrastructure/Doctrine/Repositories/{DOMAIN_NAME}/{ENTITY_NAME}Repository.php,
@@ -17,21 +17,22 @@ Application/Core/Http/Controllers/{DOMAIN_NAME}Controller.php
 Application/Core/Services/{DOMAIN_NAME}Service.php
 Application/Core/Providers/{DOMAIN_NAME}Provider.php
 
-/routes/{LOWER_CASE_DOMAIN_NAME}.php
-
+/routes/{LOWER_CASE_DOMAIN_NAME}.php 
+</b><br/>
 The Application Services are understood as Entrypoint for Domain.
 There is one Controller, Service Application and Service Provider by Domain.
 Providers map Contracts and Implementations.
 
 #Usage
 composer install <br/>
-check the configuration in config/ddd_generator.php <br/>
-set the Domain definition. e.g ddd_generator/domain_defition_file_example.php <br/>
+<b>check the configuration in config/ddd_generator.php </b> <br/>
+<b>set the Domain definition. e.g ddd_generator/domain_defition_file_example.php </b><br/>
 
-To generate the files:
-php artisan ddd:generator ddd_generator/domain_defition_file_example.php 
+To generate the files:<br/>
+<b>php artisan ddd:generator ddd_generator/domain_defition_file_example.php</b>
 
-In your destination Application change composer.json as the example. 
+In your destination Application change composer.json as the example. <br />
+```json 
   "autoload": {
     "psr-4": {
       "Application\\Core\\": "Application/core/",
@@ -39,7 +40,7 @@ In your destination Application change composer.json as the example.
       "Infrastructure\\": "Infrastructure/"
     }
   },
-
+```
 #Requirements
 "php": ">=5.6.4", <br />
 "laravel/lumen-framework": "5.3.*", <br />
