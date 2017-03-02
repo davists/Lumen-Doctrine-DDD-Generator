@@ -1,0 +1,37 @@
+
+Introduction:
+There is some DDD concepts, that this tool does not implement as: ValueObject, multiple Entites per Domain and Domain Services.
+The main purpose is to bootstrap the basic files and structure for the application.
+
+References:
+
+DDD
+https://github.com/dddinphp
+http://www.zankavtaskin.com/2013/09/applied-domain-driven-design-ddd-part-1.html
+https://www.youtube.com/watch?v=pL9XeNjy_z4&list=PLx4mLirQvMeV0uNpo1UaculL-djjI8eTz
+https://www.youtube.com/watch?v=yPvef9R3k-M
+https://www.youtube.com/watch?v=dnUFEg68ESM
+
+Hexagonal Architecture
+http://fideloper.com/hexagonal-architecture
+http://alistair.cockburn.us/Hexagonal+architecture
+https://www.yordipauptit.com/hexagonal-architecture-in-php/
+
+Laravel Doctrine
+http://www.laraveldoctrine.org/
+
+XML Doctrine Mapping
+http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/xml-mapping.html
+
+Criteria Array to Doctrine Criteria
+https://gist.github.com/jgornick/8671644
+
+Foreign Key
+https://maltronblog.wordpress.com/2015/02/15/fkrelation/
+https://engineering.thetrainline.com/2015/07/23/foreign-keys-dont-go-there/
+http://microservices.io/patterns/data/database-per-service.html
+
+Generators
+https://github.com/InfyOmLabs/laravel-generator
+https://github.com/motamonteiro/gerador
+

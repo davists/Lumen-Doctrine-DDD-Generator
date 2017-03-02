@@ -1,0 +1,206 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: davi
+ * Date: 2/26/17
+ * Time: 12:35 AM
+ */
+
+namespace Infrastructure\Doctrine\Repositories\{ENTITY_NAME};
+
+use Domain\{DOMAIN_NAME}\Entities\{ENTITY_NAME};
+use Doctrine\ORM\EntityManager;
+use Domain\{DOMAIN_NAME}\Contracts\{ENTITY_NAME}RepositoryContract;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\DBAL\Query\Expression\CompositeExpression;
+
+/**
+ * Class {ENTITY_NAME}Repository
+ * @package Infrastructure\Doctrine\Repositories\{ENTITY_NAME}
+ */
+class {ENTITY_NAME}Repository implements {ENTITY_NAME}RepositoryContract
+{
+    /**
+     * @var string
+     */
+    private $class = {ENTITY_NAME}::class;
+
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * {ENTITY_NAME}Repository constructor.
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @param {ENTITY_NAME} ${LOWER_ENTITY_NAME}
+     */
+    public function create({ENTITY_NAME} ${LOWER_ENTITY_NAME})
+    {
+        $this->em->persist(${LOWER_ENTITY_NAME});
+        $this->em->flush();
+    }
+
+    /**
+     * @param {ENTITY_NAME} ${LOWER_ENTITY_NAME}
+     * @param $data
+     */
+    public function update({ENTITY_NAME} ${LOWER_ENTITY_NAME}, $data)
+    {
+        {REPOSITORY_UPDATE_METHOD}
+        $this->em->persist(${LOWER_ENTITY_NAME});
+        $this->em->flush();
+    }
+
+    /**
+     * @param {ENTITY_NAME} ${ENTITY_NAME}
+     */
+    public function delete({ENTITY_NAME} ${LOWER_ENTITY_NAME})
+    {
+        $this->em->remove(${LOWER_ENTITY_NAME});
+        $this->em->flush();
+    }
+
+    /**
+     * create {ENTITY_NAME}
+     * @return {ENTITY_NAME}
+     */
+    public function load($data)
+    {
+        return new {ENTITY_NAME}($data);
+    }
+
+    /**
+     * @param $id
+     * @return null|object
+     */
+    public function findById($id)
+    {
+        return $this->em->getRepository($this->class)->findOneBy([
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function findAll()
+    {
+        return $this->em->getRepository($this->class)->findAll();
+    }
+
+    /**
+     * @param {ENTITY_NAME} ${LOWER_ENTITY_NAME}
+     * @return array
+     */
+    public function toArray({ENTITY_NAME} ${LOWER_ENTITY_NAME})
+    {
+        return [
+            {REPOSITORY_TO_ARRAY_METHOD}
+
+        ];
+    }
+
+
+    /**
+     * @param $dql
+     * @param int $page
+     * @param int $limit
+     * @return Paginator
+     */
+    public function paginate($dql, $page = 1, $limit = 20)
+    {
+        $query = $this->em->createQuery($dql)
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+
+        return $this->paginatorToArray($paginator);
+    }
+
+    /**
+     * @param Paginator $paginator
+     * @return array
+     */
+    public function paginatorToArray(Paginator $paginator)
+    {
+        $arrayResponse = [];
+
+        foreach($paginator as ${LOWER_ENTITY_NAME}){
+            $arrayResponse[] = $this->toArray(${LOWER_ENTITY_NAME});
+        }
+
+        return $arrayResponse;
+    }
+
+
+    /**
+     * @param array $filter
+     * @return array
+     */
+    public function findByCriteria(array $filter)
+    {
+        $criteria = $this->addCriteria($filter);
+        $result = $this->em->getRepository($this->class)->matching($criteria)->toArray();
+
+        $arrayResponse = [];
+
+        foreach ($result as ${LOWER_ENTITY_NAME}){
+            $arrayResponse[]  = $this->toArray(${LOWER_ENTITY_NAME});
+        }
+
+        return $arrayResponse;
+    }
+
+    /**
+     * @param $filter
+     * @return Criteria
+     */
+    public function addCriteria($filter)
+    {
+        $criteria = Criteria::create();
+        $expr = Criteria::expr();
+
+        if (count($filter)) {
+            foreach ($filter as $expression => $comparison) {
+                if(is_array($comparison[0])){
+                    foreach ($comparison as $statement){
+
+                        list($field, $operator, $value) = $statement;
+
+                        if($field === "createdAt" || $field === "updatedAt"){
+                            $value = new \DateTime($value);
+
+                        }
+
+                        if ($expression === 'or') {
+                            $criteria->orWhere($expr->{$operator}($field,$value));
+                        }
+
+                        if ($expression === 'and') {
+                            $criteria->andWhere($expr->{$operator}($field,$value));
+                        }
+                    }
+                }
+                else{
+                    list($field, $operator, $value) = $comparison;
+                    $criteria->where($expr->{$operator}($field,$value));
+                }
+            }
+        }
+
+        return $criteria;
+    }
+
+
+}

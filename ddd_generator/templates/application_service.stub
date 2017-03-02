@@ -1,0 +1,74 @@
+<?php
+/**
+ * Created by DDDGenerator
+ * By davi dos santos - davi646@gmail.com
+ */
+
+namespace Application\Core\Services\{DOMAIN_NAME};
+
+use Domain\{DOMAIN_NAME}\Contracts\{DOMAIN_NAME}RepositoryContract;
+
+/**
+ * Class {DOMAIN_NAME}Service
+ * @package Application\Core\Services\{DOMAIN_NAME}
+ */
+class {DOMAIN_NAME}Service
+{
+    /**
+     * @var {DOMAIN_NAME}RepositoryContract
+     */
+    private $repository;
+
+    /**
+     * {DOMAIN_NAME}Service constructor.
+     * @param {DOMAIN_NAME}RepositoryContract $repository
+     */
+    public function __construct({DOMAIN_NAME}RepositoryContract $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function create{DOMAIN_NAME}($data)
+    {
+        ${LOWER_DOMAIN_NAME} = $this->repository->load($data);
+        $this->repository->create(${LOWER_DOMAIN_NAME});
+
+        return  $response = [
+            'status'=>'200',
+            'message' => 'success',
+            'data' => '{LOWER_DOMAIN_NAME} saved successfully'
+        ];
+    }
+
+    /**
+     * @param $limit
+     * @return mixed
+     */
+    public function getByPage($page,$limit)
+    {
+        $sql = "SELECT u FROM Domain\{DOMAIN_NAME}\Entities\{DOMAIN_NAME} u ";
+        $pagination = $this->repository->paginate($sql,$page,$limit);
+
+        return  $response = [
+            'status'=>'200',
+            'message' => $pagination,
+            'data' => '{LOWER_DOMAIN_NAME}s retrieved successfully'
+        ];
+    }
+
+    public function getByFilter($criteria)
+    {
+        $filter = $this->repository->findByCriteria($criteria);
+
+        return  $response = [
+            'status'=>'200',
+            'message' => '{LOWER_DOMAIN_NAME}s retrieved successfully',
+            'data' => $filter,
+        ];
+    }
+
+}

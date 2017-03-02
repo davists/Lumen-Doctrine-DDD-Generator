@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Domain\Manager\Entities\Manager" table="manger">
+
+
+	<unique-constraints>
+		<unique-constraint name="name_UNIQUE" columns="manager_name"/>
+		<unique-constraint name="weight_UNIQUE" columns="manager_weight"/>
+
+	</unique-constraints>
+
+    <id  name="manager_id"  column="manager_id"  type="integer"  length="10" nullable="false">
+        <generator strategy="IDENTITY"/>
+    </id>
+
+    <field  name="name"  column="manager_name"  type="string"  length="255"  unique="true"  nullable="false" >
+        <options>
+          <option name="fixed"/>
+          <option name="default">JOAO</option>
+        </options>  
+    </field>
+
+    <field  name="weight"  column="manager_weight"  type="decimal"  scale="5"  precision="2"  unique="true" nullable="false">
+        <options>
+          <option name="fixed"/>
+          <option name="default">10.25</option>
+        </options>  
+    </field>
+
+
+  </entity>
+</doctrine-mapping>

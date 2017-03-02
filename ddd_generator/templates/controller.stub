@@ -1,0 +1,39 @@
+<?php
+
+namespace Application\Core\Http\Controllers;
+
+use Application\Core\Services\{DOMAIN_NAME}\{DOMAIN_NAME}Service;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class {DOMAIN_NAME}Controller extends Controller
+{
+    public ${DOMAIN_NAME}AppService;
+
+    public function __construct({DOMAIN_NAME}Service ${LOWER_DOMAIN_NAME}Service)
+    {
+        $this->{LOWER_DOMAIN_NAME}AppService = ${LOWER_DOMAIN_NAME}Service;
+    }
+
+    public function create(Request $request)
+    {
+        $post = $request->all();
+        $response = $this->{LOWER_DOMAIN_NAME}AppService->create{DOMAIN_NAME}($post);
+
+        return JsonResponse::create($response,$response['status']);
+    }
+
+    public function getByPage($page,$limit)
+    {
+        $response = $this->{LOWER_DOMAIN_NAME}AppService->getByPage($page,$limit);
+        return JsonResponse::create($response,$response['status']);
+    }
+
+    public function getByFilter(Request $request)
+    {
+        $criteria = $request->only(['filter']);
+        $response = $this->{LOWER_DOMAIN_NAME}AppService->getByFilter($criteria['filter']);
+        return JsonResponse::create($response,$response['status']);
+    }
+
+}

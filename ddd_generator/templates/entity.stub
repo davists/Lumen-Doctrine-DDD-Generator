@@ -1,0 +1,23 @@
+<?php
+
+namespace Domain\{DOMAIN_NAME}\Entities;
+
+/**
+ * {ENTITY_NAME}
+ */
+class {ENTITY_NAME}
+{
+    {ENTITY_PRIVATE_FIELDS}
+    /**
+     * {ENTITY_NAME} constructor.
+     * @param $data
+     */
+    public function __construct($data)
+    {
+        //your business logic
+     }
+    {ENTITY_SET_FIELDS}
+    {ENTITY_GET_FIELDS}
+
+}
+

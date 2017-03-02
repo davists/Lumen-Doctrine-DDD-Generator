@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Domain\Customer\Entities\Order" table="order">
+
+
+	<unique-constraints>
+		<unique-constraint name="order_name_UNIQUE" columns="order_name"/>
+
+	</unique-constraints>
+
+    <id  name="order_id"  column="order_id"  type="integer"  length="10" nullable="false">
+        <generator strategy="IDENTITY"/>
+    </id>
+
+    <field  name="order_name"  column="order_name"  type="string"  length="255"  unique="true"  nullable="false" >
+        <options>
+          <option name="fixed"/>
+
+        </options>  
+    </field>
+
+    <field  name="order_weight"  column="order_weight"  type="decimal"  scale="5"  precision="2" nullable="false">
+        <options>
+          <option name="fixed"/>
+
+        </options>  
+    </field>
+
+
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,23 @@
+<?php
+
+// routes for {DOMAIN_NAME}
+
+$app->post('{LOWER_DOMAIN_NAME}s/create', [
+    'uses' => '{LOWER_DOMAIN_NAME}Controller@create',
+]);
+
+$app->get('{LOWER_DOMAIN_NAME}s/getByPage/{page}/{limit}', [
+    'uses' => '{LOWER_DOMAIN_NAME}Controller@getByPage',
+]);
+
+$app->post('{LOWER_DOMAIN_NAME}s/filter/', [
+    'uses' => '{LOWER_DOMAIN_NAME}Controller@getByFilter',
+]);
+
+$app->put('{LOWER_DOMAIN_NAME}s/update/', [
+    'uses' => '{LOWER_DOMAIN_NAME}Controller@update',
+]);
+
+$app->delete('{LOWER_DOMAIN_NAME}s/delete/', [
+    'uses' => '{LOWER_DOMAIN_NAME}Controller@delete',
+]);
