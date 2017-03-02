@@ -28,6 +28,9 @@ composer install <br/>
 check the configuration in config/ddd_generator.php <br/>
 set the Domain definition. e.g ddd_generator/domain_defition_file_example.php <br/>
 
+To generate the files:
+php artisan ddd:generator ddd_generator/domain_defition_file_example.php 
+
 In your destination Application change composer.json as the example. 
   "autoload": {
     "psr-4": {
