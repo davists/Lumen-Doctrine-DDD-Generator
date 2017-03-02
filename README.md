@@ -2,8 +2,8 @@
 Generates the basic files for a Domain Driven Design Application, based on Lumen and Doctrine. 
 
 # Introduction:
-There is some DDD concepts, that this tool does not implement as: ValueObject, multiple Entites per Domain and Domain Services.
-The main purpose is to bootstrap the basic files and structure for the application.
+There are some DDD concepts, that Generator does not implement as: ValueObject, multiple Entites per Domain and Domain Services.
+The main purpose is to give you the basic architecture.
 
 #Assumptions:
 For a given Domain compound by Entities the generated files are:
