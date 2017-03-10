@@ -27,6 +27,27 @@
         </options>  
     </field>
 
+    <field  name="createdAt"  column="created_at"  type="datetime"  nullable="false" >
+        <options>
+          <option name="fixed"/>
+          <option name="default">CURRENT_TIMESTAMP</option>
+        </options>  
+    </field>
+
+    <field  name="updatedAt"  column="updated_at"  type="datetime"  nullable="true" >
+        <options>
+          <option name="fixed"/>
+
+        </options>  
+    </field>
+
+    <field  name="deletedAt"  column="deleted_at"  type="datetime"  nullable="true" >
+        <options>
+          <option name="fixed"/>
+
+        </options>  
+    </field>
+
 
   </entity>
 </doctrine-mapping>

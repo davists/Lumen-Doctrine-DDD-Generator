@@ -20,12 +20,7 @@
             "DDD\\Generator\\": "ddd_generator/src/"
         }
     },
-    "autoload-dev": {
-        "classmap": [
-            "tests/",
-            "database/"
-        ]
-    },
+
     "scripts": {
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""

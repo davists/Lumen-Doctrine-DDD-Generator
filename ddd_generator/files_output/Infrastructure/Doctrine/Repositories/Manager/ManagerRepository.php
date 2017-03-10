@@ -63,6 +63,12 @@ class ManagerRepository implements ManagerRepositoryContract
 
 		$manager->setWeight($data['weight']);
 
+		$manager->setCreatedAt($data['createdAt']);
+
+		$manager->setUpdatedAt($data['updatedAt']);
+
+		$manager->setDeletedAt($data['deletedAt']);
+
         $this->em->persist($manager);
         $this->em->flush();
     }
@@ -115,6 +121,9 @@ class ManagerRepository implements ManagerRepositoryContract
             "manager_id" => $manager->getManagerId(),
             "name" => $manager->getName(),
             "weight" => $manager->getWeight(),
+            "createdAt" => $manager->getCreatedAt(),
+            "updatedAt" => $manager->getUpdatedAt(),
+            "deletedAt" => $manager->getDeletedAt(),
 
         ];
     }

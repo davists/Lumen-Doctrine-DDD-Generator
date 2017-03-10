@@ -8,16 +8,17 @@ The main purpose is to give you the basic architecture.
 #Assumptions:
 For a given Domain compound by Entities the generated files are:
 <b>
-Domain/{DOMAIN_NAME}/Entities/{ENTITY_NAME}.php,
-Domain/{DOMAIN_NAME}/Contracts/{ENTITY_NAME}RepositoryContract.php,
-Infrastructure/Doctrine/Repositories/{DOMAIN_NAME}/{ENTITY_NAME}Repository.php,
-Infrastructure/Doctrine/Mappings/Domain.{DOMAIN_NAME}.Entities.{ENTITY_NAME}.dcm.xml',
+<br/>
+Domain/{DOMAIN_NAME}/Entities/{ENTITY_NAME}.php, <br/>
+Domain/{DOMAIN_NAME}/Contracts/{ENTITY_NAME}RepositoryContract.php,<br/>
+Infrastructure/Doctrine/Repositories/{DOMAIN_NAME}/{ENTITY_NAME}Repository.php,<br/>
+Infrastructure/Doctrine/Mappings/Domain.{DOMAIN_NAME}.Entities.{ENTITY_NAME}.dcm.xml',<br/>
 
-Application/Core/Http/Controllers/{DOMAIN_NAME}Controller.php
-Application/Core/Services/{DOMAIN_NAME}Service.php
-Application/Core/Providers/{DOMAIN_NAME}Provider.php
+Application/Core/Http/Controllers/{DOMAIN_NAME}Controller.php<br/>
+Application/Core/Services/{DOMAIN_NAME}Service.php<br/>
+Application/Core/Providers/{DOMAIN_NAME}Provider.php<br/>
 
-/routes/{LOWER_CASE_DOMAIN_NAME}.php 
+/routes/{LOWER_CASE_DOMAIN_NAME}.php <br/>
 </b><br/>
 The Application Services are understood as Entrypoint for Domain.
 There is one Controller, Service Application and Service Provider by Domain.

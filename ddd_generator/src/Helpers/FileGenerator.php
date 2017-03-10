@@ -168,6 +168,34 @@ class FileGenerator
         return  base_path('ddd_generator/templates/');
     }
 
+    public static function getTimestampsFields($fields){
+
+        $fields[] = [
+            'name'=>'createdAt',
+            'column'=>'created_at',
+            'type'=>'datetime',
+            'nullable'=>'false',
+            'options' => [
+                'default' => 'CURRENT_TIMESTAMP'
+            ]
+        ];
+
+        $fields[] = [
+            'name'=>'updatedAt',
+            'column'=>'updated_at',
+            'type'=>'datetime',
+            'nullable'=>'true',
+        ];
+
+        $fields[] = [
+            'name'=>'deletedAt',
+            'column'=>'deleted_at',
+            'type'=>'datetime',
+            'nullable'=>'true',
+        ];
+
+        return $fields;
+    }
 
     public static function generateEntityPrivateFileds($fields)
     {
@@ -215,6 +243,13 @@ EOF;
 
             $type = self::generateVariableTypeForPHPDoc($field['type']);
             $setMethod = self::generateSetMethodName($field['name']);
+
+            $paramAttribution = "\${$field['name']}";
+
+            if($field['name'] == "createdAt" || $field['name'] == "updatedAt" || $field['name'] == "deletedAt" ){
+                $paramAttribution = "new \\DateTime($paramAttribution)";
+            }
+
             $setFields .=
 <<<EOF
 
@@ -223,7 +258,7 @@ EOF;
     */ 
     public function $setMethod(\${$field['name']})
     {
-        \$this->{$field['name']} = \${$field['name']};
+        \$this->{$field['name']} = $paramAttribution;
     }
 
 EOF;

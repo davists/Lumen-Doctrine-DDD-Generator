@@ -74,6 +74,11 @@ class DDDGeneratorCommand extends Command
 
             foreach ($entities['entities'] as $entity=>$entityConfig){
                 $entityName = $entity;
+
+                if(isset($entityConfig['timestamps']) && $entityConfig['timestamps']){
+                    $entityConfig['fields'] = FileGenerator::getTimestampsFields($entityConfig['fields']);
+                }
+
                 $replaces = FileGenerator::setFileReplaces($entityConfig,$entityName,$domainName,$config);
                 $typesForGeneration = FileGenerator::getNoCrudFilesAvailable();
 

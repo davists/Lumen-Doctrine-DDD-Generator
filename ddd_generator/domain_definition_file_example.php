@@ -16,8 +16,9 @@ return [
         'entities'=>[ //domain entities
 
             'Manager' => [
-                'generate_crud' => true,  //if true create routes contorller and "service domain as entry point"
+                'generate_crud' => true,  //if true create routes controller and "service domain as entry point"
                 'table' => 'manger',
+                'timestamps' => true,  //generation of created_at (default current_timestamp), updated_at and deleted_at
                 'fields'=>[
                     [
                         'pk' => true,
