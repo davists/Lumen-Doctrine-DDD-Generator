@@ -9,6 +9,7 @@
 namespace DDD\Generator\Console;
 
 use DDD\Generator\Helpers\FileGenerator;
+use Faker\Provider\File;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\Console\Input\InputArgument;
@@ -71,6 +72,7 @@ class DDDGeneratorCommand extends Command
         foreach ($domain_definition as $domain => $entities) {
 
             $domainName = $domain;
+            $replaceServiceProviderBinds['SERVICE_PROVIDER_BIND'] = "";
 
             foreach ($entities['entities'] as $entity=>$entityConfig){
                 $entityName = $entity;
@@ -80,6 +82,7 @@ class DDDGeneratorCommand extends Command
                 }
 
                 $replaces = FileGenerator::setFileReplaces($entityConfig,$entityName,$domainName,$config);
+
                 $typesForGeneration = FileGenerator::getNoCrudFilesAvailable();
 
                 if(isset($entityConfig['generate_crud']) && $entityConfig['generate_crud']) {
@@ -94,7 +97,22 @@ class DDDGeneratorCommand extends Command
                     $fileContent = FileGenerator::fillTemplate($type,$replaces);
                     FileGenerator::createFile($destination_path,$fileName,$fileContent);
                 }
+
+                $replaceServiceProviderBinds['SERVICE_PROVIDER_BIND'] .= FileGenerator::getServiceProviderBind($domainName,$entityName,$entityConfig);
             }
+
+            //@TODO improve readbility
+            if(strlen($replaceServiceProviderBinds['SERVICE_PROVIDER_BIND']) > 1 ){
+                $domainNameNormalized = FileGenerator::formatTargetFileName($domainName);
+
+                $replaceServiceProviderBinds['DOMAIN_NAME'] = $domainNameNormalized;
+                $destination_path = $config['path']['dest_path'] . FileGenerator::getDirectoryName($domainName,$config['path']['service_provider']);
+                $fileName = $domainNameNormalized."Provider.php";
+
+                $fileContent = FileGenerator::fillTemplate('service_provider',$replaceServiceProviderBinds);
+                FileGenerator::createFile($destination_path,$fileName,$fileContent);
+            }
+
         }
     }
 }

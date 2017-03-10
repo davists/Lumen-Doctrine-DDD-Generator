@@ -14,7 +14,7 @@ class {DOMAIN_NAME}Provider extends ServiceProvider
     public function register()
     {
 
-        $this->app->bind('Domain\{DOMAIN_NAME}\Contracts\{ENTITY_NAME}RepositoryContract', 'Infrastructure\Doctrine\Repositories\{DOMAIN_NAME}\{ENTITY_NAME}Repository');
+        {SERVICE_PROVIDER_BIND}
 
     }
 }

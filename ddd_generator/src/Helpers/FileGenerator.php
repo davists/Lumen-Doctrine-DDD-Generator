@@ -86,7 +86,7 @@ class FileGenerator
 
             'controller'          => '{DOMAIN_NAME}Controller.php',
             'application_service' => '{DOMAIN_NAME}Service.php',
-            'service_provider'    => '{DOMAIN_NAME}Provider.php',
+            //'service_provider'    => '{DOMAIN_NAME}Provider.php',
 
             'route'              => '{LOWER_DOMAIN_NAME}.php'
         ];
@@ -97,6 +97,13 @@ class FileGenerator
         return [
             'entity' => self::getFilesAvailable()['entity'],
             'entity_mapping' => self::getFilesAvailable()['entity_mapping']
+        ];
+    }
+
+
+    public static function getServiceProviderAvailable(){
+        return [
+            'service_provider'    => '{DOMAIN_NAME}Provider.php',
         ];
     }
 
@@ -290,6 +297,26 @@ EOF;
         }
 
         return $getFields;
+    }
+
+
+    public static function getServiceProviderBind($domain_name, $entity_name, $entity_config)
+    {
+        $serviceProviderBind="";
+        if(isset($entity_config['generate_crud']) && $entity_config['generate_crud']){
+
+            $domain_name = self::formatTargetFileName($domain_name);
+            $entity_name = self::formatTargetFileName($entity_name);
+
+            $serviceProviderBind =
+<<<EOF
+\n\t\t\$this->app->bind('Domain\\$domain_name\Contracts\\{$entity_name}RepositoryContract', 'Infrastructure\Doctrine\Repositories\\{$domain_name}\\{$entity_name}Repository');\n
+EOF;
+
+
+        }
+
+        return $serviceProviderBind;
     }
 
 

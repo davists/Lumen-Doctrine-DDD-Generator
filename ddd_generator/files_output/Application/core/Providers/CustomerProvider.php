@@ -14,7 +14,11 @@ class CustomerProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->bind('Domain\Customer\Contracts\OrderRepositoryContract', 'Infrastructure\Doctrine\Repositories\Customer\OrderRepository');
+        
+		$this->app->bind('Domain\Customer\Contracts\CustomerRepositoryContract', 'Infrastructure\Doctrine\Repositories\Customer\CustomerRepository');
+
+		$this->app->bind('Domain\Customer\Contracts\OrderRepositoryContract', 'Infrastructure\Doctrine\Repositories\Customer\OrderRepository');
+
 
     }
 }

@@ -14,7 +14,11 @@ class ManagerProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->bind('Domain\Manager\Contracts\OfferRepositoryContract', 'Infrastructure\Doctrine\Repositories\Manager\OfferRepository');
+        
+		$this->app->bind('Domain\Manager\Contracts\ManagerRepositoryContract', 'Infrastructure\Doctrine\Repositories\Manager\ManagerRepository');
+
+		$this->app->bind('Domain\Manager\Contracts\OfferRepositoryContract', 'Infrastructure\Doctrine\Repositories\Manager\OfferRepository');
+
 
     }
 }
