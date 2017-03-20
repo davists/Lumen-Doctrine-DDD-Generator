@@ -82,7 +82,7 @@ class FileGenerator
             'repository_contract' => '{ENTITY_NAME}RepositoryContract.php',
             'repository'          => '{ENTITY_NAME}Repository.php',
 
-            'entity_mapping'      => '{DOTTED_ENTITY_NAMESPACE}.dcm.yaml',
+            'entity_mapping'      => '{DOTTED_ENTITY_NAMESPACE}.dcm.yml',
             //'entity_mapping'      => '{DOTTED_ENTITY_NAMESPACE}.dcm.xml',
 
             'controller'          => '{DOMAIN_NAME}Controller.php',
@@ -397,7 +397,7 @@ EOF;
 
 
             foreach ($field as $key => $value) {
-                if (!in_array($key, ['pk', 'options'])) {
+                if (!in_array($key, ['pk', 'options', 'name'])) {
 
                     if(is_numeric($value)){
                         $valueFormated = intval($value);
@@ -434,7 +434,9 @@ EOF;
 
             if (isset($field['pk']) && $field['pk']) {
                 $fieldMap['generator'] = ['strategy'=>'IDENTITY'];
-                $mappings[$namespace]['id'] = $fieldMap;
+                $fieldMap['id'] = true;
+
+                $mappings[$namespace]['id']['id'] = $fieldMap;
             }
             else{
                 $mappings[$namespace]['fields'][$fieldName] = $fieldMap;
@@ -442,7 +444,7 @@ EOF;
 
         }
 
-        $yaml = Yaml::dump($mappings,5);
+        $yaml = Yaml::dump($mappings,6);
 
         return $yaml;
     }
