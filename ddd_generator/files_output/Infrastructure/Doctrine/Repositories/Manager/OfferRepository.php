@@ -59,11 +59,37 @@ class OfferRepository implements OfferRepositoryContract
         
 		$offer->setOfferId($data['offer_id']);
 
-		$offer->setOfferName($data['offer_name']);
+		$offer->setManagerId($data['manager_id']);
 
-		$offer->setOfferWeight($data['offer_weight']);
+		$offer->setServiceId($data['service_id']);
 
-		$offer->setOfferSharp($data['offer_sharp']);
+		$offer->setScheduleWeekDays($data['schedule_week_days']);
+
+		$offer->setScheduleStartDate($data['schedule_start_date']);
+
+		$offer->setScheduleEndDate($data['schedule_end_date']);
+
+		$offer->setScheduleStartHour($data['schedule_start_hour']);
+
+		$offer->setScheduleEndHour($data['schedule_end_hour']);
+
+		$offer->setPrice($data['price']);
+
+		$offer->setDiscount($data['discount']);
+
+		$offer->setDiscountExpirationDate($data['discount_expiration_date']);
+
+		$offer->setEstimatedDurationHours($data['estimated_duration_hours']);
+
+		$offer->setEstimatedDurationHours($data['estimated_duration_hours']);
+
+		$offer->setScheduleDeadline($data['schedule_deadline']);
+
+		$offer->setCreatedAt($data['createdAt']);
+
+		$offer->setUpdatedAt($data['updatedAt']);
+
+		$offer->setDeletedAt($data['deletedAt']);
 
         $this->em->persist($offer);
         $this->em->flush();
@@ -115,9 +141,22 @@ class OfferRepository implements OfferRepositoryContract
         return [
             
             "offer_id" => $offer->getOfferId(),
-            "offer_name" => $offer->getOfferName(),
-            "offer_weight" => $offer->getOfferWeight(),
-            "offer_sharp" => $offer->getOfferSharp(),
+            "manager_id" => $offer->getManagerId(),
+            "service_id" => $offer->getServiceId(),
+            "schedule_week_days" => $offer->getScheduleWeekDays(),
+            "schedule_start_date" => $offer->getScheduleStartDate(),
+            "schedule_end_date" => $offer->getScheduleEndDate(),
+            "schedule_start_hour" => $offer->getScheduleStartHour(),
+            "schedule_end_hour" => $offer->getScheduleEndHour(),
+            "price" => $offer->getPrice(),
+            "discount" => $offer->getDiscount(),
+            "discount_expiration_date" => $offer->getDiscountExpirationDate(),
+            "estimated_duration_hours" => $offer->getEstimatedDurationHours(),
+            "estimated_duration_hours" => $offer->getEstimatedDurationHours(),
+            "schedule_deadline" => $offer->getScheduleDeadline(),
+            "createdAt" => $offer->getCreatedAt(),
+            "updatedAt" => $offer->getUpdatedAt(),
+            "deletedAt" => $offer->getDeletedAt(),
 
         ];
     }

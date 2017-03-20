@@ -15,9 +15,9 @@ class ManagerProvider extends ServiceProvider
     {
 
         
-		$this->app->bind('Domain\Manager\Contracts\ManagerRepositoryContract', 'Infrastructure\Doctrine\Repositories\Manager\ManagerRepository');
-
 		$this->app->bind('Domain\Manager\Contracts\OfferRepositoryContract', 'Infrastructure\Doctrine\Repositories\Manager\OfferRepository');
+
+		$this->app->bind('Domain\Manager\Contracts\ServiceRepositoryContract', 'Infrastructure\Doctrine\Repositories\Manager\ServiceRepository');
 
 
     }

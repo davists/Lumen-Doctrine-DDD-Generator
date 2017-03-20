@@ -7,6 +7,7 @@
  */
 
 namespace DDD\Generator\Helpers;
+use Symfony\Component\Yaml\Yaml;
 
 class FileGenerator
 {
@@ -23,8 +24,7 @@ class FileGenerator
             'ENTITY_PRIVATE_FIELDS'      => self::generateEntityPrivateFileds($entity_config['fields']),
             'ENTITY_SET_FIELDS'          => self::generateEntitySetFileds($entity_config['fields']),
             'ENTITY_GET_FIELDS'          => self::generateEntityGetFileds($entity_config['fields']),
-            'MAPPING_ENTITY_FIELDS'      => self::generateMappingEntityFields($entity_config['fields']),
-            'MAPPING_UNIQUE_CONSTRAINTS' => self::generateMappingUniqueConstraints($entity_config['fields']),
+            'MAPPING_YAML'               => self::generateYamlMappings($domain_name,$entity_name,$entity_config['fields']),
             'ENTITY_NAMESPACE'           => self::getFullEntityNamespace($config['namespace']['entity'],$entity_name,$domain_name),
             'TABLE'                      => $entity_config['table'],
         ];
@@ -82,7 +82,8 @@ class FileGenerator
             'repository_contract' => '{ENTITY_NAME}RepositoryContract.php',
             'repository'          => '{ENTITY_NAME}Repository.php',
 
-            'entity_mapping'      => '{DOTTED_ENTITY_NAMESPACE}.dcm.xml',
+            'entity_mapping'      => '{DOTTED_ENTITY_NAMESPACE}.dcm.yaml',
+            //'entity_mapping'      => '{DOTTED_ENTITY_NAMESPACE}.dcm.xml',
 
             'controller'          => '{DOMAIN_NAME}Controller.php',
             'application_service' => '{DOMAIN_NAME}Service.php',
@@ -358,107 +359,6 @@ EOF;
         return $toArrayMethod;
     }
 
-    public static function generateMappingEntityFields($fields)
-    {
-        $mappings = '';
-
-        foreach ($fields as $field){
-
-            $options = '';
-            $defaultValueOption = '';
-
-if(isset($field['options']['default'])) {
-$defaultValueOption =
-<<<EOF
-          <option name="default">{$field['options']['default']}</option>
-EOF;
-
-}
-
-        $mainOption = 'fixed';
-        if($field['type'] == 'integer'){
-            $mainOption = 'unsigned';
-        }
-
-        $fieldInformation = '';
-
-        foreach ($field as $key=>$value){
-            if(!in_array($key,['pk','options'])){
-                $fieldInformation .= " $key=\"$value\" ";
-            }
-        }
-
-        if(preg_match('/nullable/',$fieldInformation) == 0){
-            $fieldInformation .= 'nullable="false"';
-        }
-
-$options .=
-<<<EOF
-<option name="$mainOption"/>
-$defaultValueOption
-EOF;
-
-$fieldMap =
-<<<EOF
-
-    <field $fieldInformation>
-        <options>
-          $options
-        </options>  
-    </field>
-
-EOF;
-
-if(isset($field['pk']) && $field['pk']){
-
-$fieldMap =
-<<<EOF
-    <id $fieldInformation>
-        <generator strategy="IDENTITY"/>
-    </id>
-
-EOF;
-
-}
-
-            $mappings .= $fieldMap;
-        }
-
-        return $mappings;
-    }
-
-
-    public static function generateMappingUniqueConstraints($fields)
-    {
-        $constraints = '';
-        $constraintsField = '';
-
-        foreach ($fields as $field){
-
-            if( isset($field['unique']) && $field['unique'] == 'true') {
-
-$constraintsField .=<<<EOF
-\t\t<unique-constraint name="{$field['name']}_UNIQUE" columns="{$field['column']}"/>\n
-EOF;
-            }
-
-        }
-
-        if(strlen($constraintsField) > 0) {
-
-$constraints =<<<EOF
-
-\t<unique-constraints>
-$constraintsField
-\t</unique-constraints>
-
-EOF;
-
-        }
-
-        return $constraints;
-    }
-
     /**
      * @param $field
      * @return string
@@ -478,4 +378,72 @@ EOF;
         return $type;
     }
 
+
+    public static function generateYamlMappings($domainName, $entityName, $fields)
+    {
+        $namespace = "Domain\\{$domainName}\\Entities\\{$entityName}";
+
+        $mappings = [
+             $namespace => [
+                 'type' => 'entity',
+                 'table' => strtolower($entityName),
+             ]
+        ];
+
+        foreach ($fields as $field) {
+
+            $fieldName = $field['name'];
+            $fieldMap = [];
+
+
+            foreach ($field as $key => $value) {
+                if (!in_array($key, ['pk', 'options'])) {
+
+                    if(is_numeric($value)){
+                        $valueFormated = intval($value);
+
+                        if($value < $valueFormated){
+                            $valueFormated = floatValue($value);
+                        }
+
+                        $value = $valueFormated;
+                    }
+
+                    if($value === 'true'){
+                        $value = boolval($value);
+                    }
+
+                    $fieldMap[$key] = $value;
+                }
+            }
+
+            if (!in_array('nullable',$field)) {
+                $fieldMap['nullable'] = false;
+            }
+
+            $mainOption = ['fixed' => false];
+            if ($field['type'] == 'integer') {
+                $mainOption = ['unsigned' => false];
+            }
+
+            $fieldMap['options'] = $mainOption;
+
+            if (isset($field['options']['default'])) {
+                $fieldMap['options'] = ['default'=>$field['options']['default']];
+            }
+
+            if (isset($field['pk']) && $field['pk']) {
+                $fieldMap['generator'] = ['strategy'=>'IDENTITY'];
+                $mappings[$namespace]['id'] = $fieldMap;
+            }
+            else{
+                $mappings[$namespace]['fields'][$fieldName] = $fieldMap;
+            }
+
+        }
+
+        $yaml = Yaml::dump($mappings,5);
+
+        return $yaml;
+    }
 }
